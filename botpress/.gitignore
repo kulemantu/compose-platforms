@@ -1,0 +1,4 @@
+botpress.env
+db.env
+botpress/data
+botpress/language

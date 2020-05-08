@@ -1,0 +1,50 @@
+version: '3'
+
+services:
+  botpress:
+    build:
+      context: ./botpress
+      dockerfile: Dockerfile
+    image: botpress-server
+    container_name: botpress-server
+    command: /botpress/bp
+    ports:
+      - 3000:3000
+    env_file: botpress.env
+    depends_on:
+      - postgres
+    volumes:
+      - ./botpress/data:/botpress/data
+    networks:
+      - default
+      - nginx-proxy
+
+  botpress_lang:
+    build:
+      context: ./botpress
+      dockerfile: Dockerfile
+    image: botpress-lang
+    container_name: botpress-lang
+    command: bash -c "./duckling -p 8000 & ./bp lang --langDir /botpress/lang --port 3100"
+    expose:
+      - 3100
+      - 8000
+    volumes:
+      - ./botpress/language:/botpress/lang
+
+  postgres:
+    image: postgres
+    ports:
+      - 5432:5432
+    container_name: botpress-postgres
+    env_file: db.env
+    volumes:
+      - bp_pgdata:/var/lib/postgresql/data
+
+volumes:
+  bp_pgdata:
+
+networks:
+  nginx-proxy:
+    external:
+      name: nginx-proxy
