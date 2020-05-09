@@ -3,7 +3,7 @@
 ## Proxy-enabled open source platforms via Docker-Compose
 Configure the `*.env.example` files and rename to `*.env` files
 
-**Note:** Not all `docker-compose.yml` files read from `*.env `files 
+**Note:** Not all `docker-compose.yml` files read from `*.env `files (**TODO**)
 
 ## Set up domains pointing to platforms using Nginx-proxy
 Create `nginx-proxy` network to containers to be exposed via port `80`/`443`
