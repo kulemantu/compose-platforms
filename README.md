@@ -1,4 +1,5 @@
-# Proxy-enabled open source platforms via Docker-Compose
+# Compose Platforms
+## Proxy-enabled open source platforms via Docker-Compose
 Configure the `*.env.example` files and rename to `*.env` files
 **Note:** Not all `docker-compose.yml` files read from `*.env `files 
 
