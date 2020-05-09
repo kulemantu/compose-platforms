@@ -1,6 +1,8 @@
 # Compose Platforms
+
 ## Proxy-enabled open source platforms via Docker-Compose
 Configure the `*.env.example` files and rename to `*.env` files
+
 **Note:** Not all `docker-compose.yml` files read from `*.env `files 
 
 ## Set up domains pointing to platforms using Nginx-proxy
@@ -13,6 +15,7 @@ Run `docker-compose up -d` from the `nginx-proxy` folder and ensure that ports `
 ```
 cd nginx-proxy
 docker-compose up -d
+
 docker-compose -f # To see added services and HTTP requests log
 ```
 
@@ -21,26 +24,34 @@ Point domains to your instances and generate SSL certificates with LetsEncrypt b
 - Setting env `VIRTUAL_PORT` to the exposed port for your app service in the `docker-compose.yml` files
 - Setting env `DEFAULT_EMAIL` in the `nging-proxy/nginx-proxy-letsencrypt` service for your support account
 
-Credit
-- https://github.com/nginx-proxy/nginx-proxy
-- https://github.com/nginx-proxy/docker-letsencrypt-nginx-proxy-companion
+**Credit**
+- https://github.com/nginx-proxy/nginx-proxy (MIT)
+- https://github.com/nginx-proxy/docker-letsencrypt-nginx-proxy-companion (MIT)
 
 ### Portainer
 Browser-based monitoring for single or multiple Docker installations
 
-Credit
-- https://github.com/portainer/portainer
+**Credit**
+- https://github.com/portainer/portainer (zlib)
 
 ### Botpress
 Studio-style chatbot design and configuration
 
-Credit
-- https://github.com/botpress/botpress
+**Credit**
+- https://github.com/botpress/botpress (AGPL3)
 
 ### Directus 
 Headless CMS that maps to raw MySQL structure
 
-Credit
-- https://github.com/directus/directus
+**Credit**
+- https://github.com/directus/directus (GPL3)
 
 # Contributing
+Create a pull request after checking that your setup is ready to go with Docker Compose and nginx-proxy
+1. Server services should contain the environment variables `VIRTUAL_HOST`, `VIRTUAL_PORT` and `LETSENCRYPT_HOST`
+2. Server services in `docker-compose.yml` should belong to `default` and `nginx-proxy` if they have other services
+3. Other services like databases in `docker-compose.yml` shouldn't be on the network `nginx-proxy`
+4. Avoid sharing .env files between services; use `postgres.env` or `service.env` where possible
+
+# License
+CCLS - *Cheza Chini Lakini Saidiana* Public License
