@@ -43,6 +43,11 @@ Studio-style chatbot design and configuration
 ### Directus 
 Headless CMS that maps to raw MySQL structure
 
+Remember to initialize the DB and admin user
+```
+docker-compose run --rm directus install --email email@example.com --password d1r3ctu5
+```
+
 **Credit**
 - https://github.com/directus/directus (GPL3)
 
