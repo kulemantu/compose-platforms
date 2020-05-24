@@ -3,8 +3,7 @@ version: "3"
 networks:
   directus:
   nginx-proxy:
-    external:
-      name: nginx-proxy
+    external: true
 
 volumes:
   mysqlData:

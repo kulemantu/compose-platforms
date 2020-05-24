@@ -39,8 +39,7 @@ services:
 
 networks:
   nginx-proxy:
-    external:
-      name: nginx-proxy
+    external: true
 
 volumes:
   pgdata:
