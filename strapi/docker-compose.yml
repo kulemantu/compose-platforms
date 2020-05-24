@@ -1,0 +1,46 @@
+version: '3'
+
+services:
+  strapi:
+    container_name: strapi
+    image: strapi/strapi
+    environment:
+      - DATABASE_CLIENT=postgres
+      - DATABASE_HOST=db
+      - DATABASE_PORT=5432
+      - DATABASE_NAME=${DB_NAME}
+      - DATABASE_USERNAME=${DB_USER}
+      - DATABASE_PASSWORD=${DB_PASS}
+      - VIRTUAL_HOST=${HOST_URL}
+      - VIRTUAL_PORT=1337
+      - LETSENCRYPT_HOST=${HOST_URL}
+    ports:
+      - 1337:1337
+    volumes:
+      - ./app:/srv/app
+    depends_on:
+      - db
+    networks:
+      - default
+      - nginx-proxy
+
+  db:
+    container_name: strapi_postgres
+    image: postgres
+    restart: always
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASS}
+      POSTGRES_DB: ${DB_NAME}
+    networks:
+      - default
+
+networks:
+  nginx-proxy:
+    external:
+      name: nginx-proxy
+
+volumes:
+  pgdata:
