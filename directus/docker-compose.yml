@@ -6,10 +6,15 @@ networks:
     external:
       name: nginx-proxy
 
+volumes:
+  mysqlData:
+
 services:
   mysql:
     image: mysql:5.7
     container_name: directus_mysql
+    volumes:
+      - mysqlData:/var/lib/mysql
     environment:
       MYSQL_DATABASE: ${DB_NAME}
       MYSQL_USER: ${DB_USER}
@@ -48,7 +53,6 @@ services:
       VIRTUAL_PORT: "8088"
       LETSENCRYPT_HOST: ${HOST_URL}
       LETSENCRYPT_EMAIL: ${SUPPORT_EMAIL}
-
     volumes:
       - ./data/config:/var/directus/config
       - ./data/uploads:/var/directus/public/uploads    
