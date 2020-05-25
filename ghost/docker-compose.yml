@@ -1,0 +1,47 @@
+version: '3.1'
+
+services:
+
+  ghost:
+    image: ghost:latest
+    container_name: ghost-server
+    restart: always
+    ports:
+      - 2368:2368
+    environment:
+      # see https://docs.ghost.org/docs/config#section-running-ghost-with-config-env-variables
+      database__client: mysql
+      database__connection__host: db
+      database__connection__user: ${DB_USER}
+      database__connection__password: ${DB_PASS}
+      database__connection__database: ${DB_NAME}
+      mail__transport: SMTP
+      mail__options__service: Sendgrid
+      mail__from: ${MAIL_FROM}
+      mail__options__host: smtp.sendgrid.net
+      mail__options__port: 587
+      mail__options__secureConnection: "false"
+      mail__options__auth__user: 'apikey'
+      mail__options__auth__pass: ${API_KEY}
+      VIRTUAL_HOST: ${HOST_URL}
+      VIRTUAL_PORT: 2386
+      LETSENCRYPT_HOST: ${HOST_URL}
+    volumes:
+      - ./content:/var/lib/ghost/content
+    networks:
+      - default
+      - nginx-proxy
+    depends_on:
+      - db
+
+  db:
+    image: mysql:5.7
+    container_name: ghost-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASS}
+
+networks:
+  nginx-proxy:
+    external: true
+
