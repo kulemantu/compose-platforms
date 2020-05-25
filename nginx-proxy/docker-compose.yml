@@ -19,8 +19,8 @@ services:
       - ./vhost.d:/etc/nginx/vhost.d
       - ./html:/usr/share/nginx/html
     environment:
-      - DHPARAM_BITS=1024
-      - DHPARAM_GENERATION=false
+      DHPARAM_BITS: ${DHPARAM_BITS}
+      DHPARAM_GENERATION: ${DHPARAM_GENERATION}
 
   nginx-proxy-letsencrypt:
     image: jrcs/letsencrypt-nginx-proxy-companion
@@ -30,4 +30,5 @@ services:
       - nginx-proxy
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-    env_file: .env
+    environment:
+      DEFAULT_EMAIL: ${SUPPORT_EMAIL}
