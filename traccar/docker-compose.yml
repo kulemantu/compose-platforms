@@ -1,0 +1,40 @@
+version: '2'
+
+services: 
+
+ mysql:
+  image: mysql:5.7.28
+  restart: always
+  hostname: mysql
+  environment:
+   - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+  volumes:
+   - mysql:/var/lib/mysql/
+   - ./mysql_files:/var/lib/mysql-files/
+   - ./conf/mysql.sql:/docker-entrypoint-initdb.d/mysql.sql
+  ports:
+   - 3307:3306
+
+ traccar:
+  image: marcelmaatkamp/traccar-server
+  hostname: traccar
+  restart: always
+  ports:
+   - "5000-5150:5000-5150"
+   - "8082:8082"
+  env_file: .env
+  volumes:
+   - traccar-db:/opt/traccar/data/database
+   - ./conf/traccar.xml:/opt/traccar/conf/traccar.xml
+  networks:
+   - default
+   - nginx-proxy
+
+networks:
+ nginx-proxy:
+  external:
+   name: nginx-proxy
+
+volumes:
+  traccar-db:
+  mysql:

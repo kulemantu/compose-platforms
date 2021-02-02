@@ -1,0 +1,3 @@
+.env
+conf/traccar.xml
+mysql_files/
