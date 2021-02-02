@@ -1,0 +1,4 @@
+.env
+conf/traccar.xml
+mysql_files/
+conf/traccar.xml.registerUnknown
