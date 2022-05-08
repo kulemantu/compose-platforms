@@ -1,0 +1,61 @@
+version: "3"
+
+networks:
+  directus:
+  proxy:
+    external: true
+
+volumes:
+  mysqlData:
+
+services:
+  mysql:
+    image: mysql:5.7
+    container_name: directus_mysql
+    volumes:
+      - mysqlData:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASS}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASS}
+    expose:
+      - 3306
+    networks:
+      - directus
+    restart: always
+
+  directus:
+    depends_on:
+      - mysql
+    image: directus/directus:v8-apache
+    container_name: directus
+    ports:
+      - "8088:80"
+    environment:
+      DIRECTUS_APP_ENV: ${APP_ENV}
+      DIRECTUS_AUTH_PUBLICKEY: ${AUTH_PUBLICKEY}
+      DIRECTUS_AUTH_SECRETKEY: ${AUTH_SECRETKEY}
+      DIRECTUS_DATABASE_HOST: "directus_mysql"
+      DIRECTUS_DATABASE_PORT: ${DB_PORT}
+      DIRECTUS_DATABASE_NAME: ${DB_NAME}
+      DIRECTUS_DATABASE_USERNAME: ${DB_USER}
+      DIRECTUS_DATABASE_PASSWORD: ${DB_PASS}
+      DIRECTUS_MAIL_DEFAULT_TRANSPORT: ${MAIL_TRANSPORT}
+      DIRECTUS_MAIL_DEFAULT_FROM: ${MAIL_FROM}
+      DIRECTUS_MAIL_DEFAULT_HOST: ${MAIL_HOST}
+      DIRECTUS_MAIL_DEFAULT_PORT: ${MAIL_PORT}
+      DIRECTUS_MAIL_DEFAULT_USERNAME: ${MAIL_USERNAME}
+      DIRECTUS_MAIL_DEFAULT_PASSWORD: ${MAIL_PASSWORD}
+      DIRECTUS_MAIL_DEFAULT_ENCRYPTION: ${MAIL_ENCRYPTION}
+      VIRTUAL_HOST: ${HOST_URL}
+      VIRTUAL_PORT: "8088"
+      LETSENCRYPT_HOST: ${HOST_URL}
+      LETSENCRYPT_EMAIL: ${SUPPORT_EMAIL}
+    volumes:
+      - ./data/config:/var/directus/config
+      - ./data/uploads:/var/directus/public/uploads    
+    networks:
+      - directus
+      - proxy
+    restart: always
