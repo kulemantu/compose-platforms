@@ -1,9 +1,8 @@
 version: '2'
 
 networks:
-  default:
-    external:
-      name: nginx-proxy
+  proxy:
+    external: true
 
 services:
   nginx-proxy:
@@ -21,6 +20,8 @@ services:
     environment:
       DHPARAM_BITS: ${DHPARAM_BITS}
       DHPARAM_GENERATION: ${DHPARAM_GENERATION}
+    networks:
+      - proxy
 
   nginx-proxy-letsencrypt:
     image: jrcs/letsencrypt-nginx-proxy-companion
@@ -32,3 +33,5 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     environment:
       DEFAULT_EMAIL: ${SUPPORT_EMAIL}
+    networks:
+      - proxy
