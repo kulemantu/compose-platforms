@@ -1,0 +1,4 @@
+.env
+uploads
+node_modules
+docker-compose.override.yml
