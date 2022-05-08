@@ -17,7 +17,7 @@ services:
       - ./botpress/data:/botpress/data
     networks:
       - default
-      - nginx-proxy
+      - proxy
 
   botpress_lang:
     build:
@@ -45,5 +45,5 @@ volumes:
   bp_pgdata:
 
 networks:
-  nginx-proxy:
+  proxy:
     external: true

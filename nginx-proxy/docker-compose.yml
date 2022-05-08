@@ -6,7 +6,7 @@ networks:
       name: nginx-proxy
 
 services:
-  nginx-proxy:
+  proxy:
     image: jwilder/nginx-proxy
     container_name: nginx-proxy
     restart: always
@@ -27,7 +27,7 @@ services:
     container_name: nginx-proxy-letsecrypt
     restart: always
     volumes_from:
-      - nginx-proxy
+      - proxy
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     environment:

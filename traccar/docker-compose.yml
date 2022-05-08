@@ -28,12 +28,12 @@ services:
    - ./conf/traccar.xml:/opt/traccar/conf/traccar.xml
   networks:
    - default
-   - nginx-proxy
+   - proxy
 
 networks:
- nginx-proxy:
+ proxy:
   external:
-   name: nginx-proxy
+   name: proxy
 
 volumes:
   traccar-db:

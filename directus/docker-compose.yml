@@ -2,7 +2,7 @@ version: "3"
 
 networks:
   directus:
-  nginx-proxy:
+  proxy:
     external: true
 
 volumes:
@@ -57,5 +57,5 @@ services:
       - ./data/uploads:/var/directus/public/uploads    
     networks:
       - directus
-      - nginx-proxy
+      - proxy
     restart: always

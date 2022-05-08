@@ -30,7 +30,7 @@ services:
       - ./content:/var/lib/ghost/content
     networks:
       - default
-      - nginx-proxy
+      - proxy
     depends_on:
       - db
 
@@ -42,6 +42,6 @@ services:
       MYSQL_ROOT_PASSWORD: ${DB_PASS}
 
 networks:
-  nginx-proxy:
+  proxy:
     external: true
 
