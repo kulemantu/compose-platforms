@@ -36,10 +36,10 @@ services:
        LETSENCRYPT_HOST: ${HOST_URL}
        LETSENCRYPT_EMAIL: ${SUPPORT_EMAIL}
      networks:
-       - nginx-proxy
+       - proxy
        - default
 volumes:
     db_data: {}
 networks:
-    nginx-proxy:
+    proxy:
       external: true

@@ -22,7 +22,7 @@ services:
       - db
     networks:
       - default
-      - nginx-proxy
+      - proxy
 
   db:
     container_name: strapi_postgres
@@ -38,7 +38,7 @@ services:
       - default
 
 networks:
-  nginx-proxy:
+  proxy:
     external: true
 
 volumes:
