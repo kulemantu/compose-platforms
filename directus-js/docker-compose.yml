@@ -72,3 +72,4 @@ networks:
 
 volumes:
   directus_data:
+    external: true
