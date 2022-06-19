@@ -34,8 +34,6 @@ services:
 
   postgres:
     image: postgres
-    ports:
-      - 5432:5432
     container_name: botpress-postgres
     env_file: db.env
     volumes:
