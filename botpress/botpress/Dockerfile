@@ -1,3 +1,3 @@
-FROM botpress/server:v12_9_1
+FROM botpress/server:v12_27_0
 WORKDIR /botpress
 CMD ["./bp"]
