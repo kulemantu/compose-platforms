@@ -18,6 +18,7 @@ services:
     networks:
       - default
       - proxy
+    restart: unless-stopped
 
   botpress_lang:
     build:
@@ -31,6 +32,7 @@ services:
       - 8000
     volumes:
       - ./botpress/language:/botpress/lang
+    restart: unless-stopped
 
   postgres:
     image: postgres
@@ -38,6 +40,7 @@ services:
     env_file: db.env
     volumes:
       - bp_pgdata:/var/lib/postgresql/data
+    restart: unless-stopped
 
 volumes:
   bp_pgdata:
