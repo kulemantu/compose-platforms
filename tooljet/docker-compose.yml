@@ -5,7 +5,7 @@ services:
     tty: true
     stdin_open: true
     image: tooljet/tooljet-ce:latest
-    restart: always
+    restart: unless-stopped
     env_file: .env
     ports:
       - "8082:80"
@@ -13,3 +13,22 @@ services:
       SERVE_CLIENT: "true"
       PORT: "80"
     command: npm run start:prod
+    depends_on:
+      - postgres
+    networks:
+      - proxy
+      - tooljet
+
+  postgres:
+    image: postgis/postgis:13-master
+    volumes:
+      - tooljet_data:/var/lib/postgresql/data
+    networks:
+      - tooljet
+    environment:
+      POSTGRES_USER: ${PG_USER}
+      POSTGRES_PASSWORD: ${PG_PASSWORD}
+      POSTGRES_DB: ${PG_DATABASE}
+
+networks:
+  tooljet:
