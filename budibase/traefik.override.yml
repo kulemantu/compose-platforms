@@ -1,0 +1,11 @@
+services: "3"
+  proxy-service:
+    - traefik.enable=true
+    - traefik.http.routers.bb-proxy-http.rule=Host(`${VIRTUAL_HOST}`)
+    - traefik.http.routers.bb-proxy-http.entrypoints=web
+    - traefik.http.routers.bb-proxy-http.middlewares=redirect
+    - traefik.http.middlewares.redirect.redirectscheme.scheme=https
+    - traefik.http.routers.bb-proxy-https.rule=Host(`${VIRTUAL_HOST}`)
+    - traefik.http.routers.bb-proxy-https.entrypoints=websecure
+    - traefik.http.routers.bb-proxy-https.tls=true
+    - traefik.http.routers.bb-proxy-https.tls.certresolver=letsencrypt

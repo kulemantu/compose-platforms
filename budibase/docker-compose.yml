@@ -1,6 +1,6 @@
 version: "3"
 
-# optional ports are specified throughout for more advanced use cases.
+# Optional ports are specified throughout for more advanced use cases.
 
 services:
   app-service:
@@ -87,6 +87,9 @@ services:
       - worker-service
       - app-service
       - couchdb-service
+    networks:
+      - default
+      - proxy
 
   couchdb-service:
     restart: unless-stopped
@@ -132,3 +135,7 @@ volumes:
     driver: local
   redis_data:
     driver: local
+
+networks:
+  proxy:
+    external: true
