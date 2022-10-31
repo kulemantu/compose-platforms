@@ -59,4 +59,4 @@ Create a pull request after checking that your setup is ready to go with Docker 
 4. Avoid sharing .env files between services; use `postgres.env` or `service.env` where possible
 
 # License
-CCLS - *Cheza Chini Lakini Saidiana* Public License
+MIT License
