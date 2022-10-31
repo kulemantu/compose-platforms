@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  server:
+    tty: true
+    stdin_open: true
+    image: tooljet/tooljet-ce:latest
+    restart: always
+    env_file: .env
+    ports:
+      - "8082:80"
+    environment:
+      SERVE_CLIENT: "true"
+      PORT: "80"
+    command: npm run start:prod
