@@ -22,7 +22,7 @@ services:
   postgres:
     image: postgis/postgis:13-master
     volumes:
-      - tooljet_data:/var/lib/postgresql/data
+      - ./tooljet_data:/var/lib/postgresql/data
     networks:
       - tooljet
     environment:
@@ -32,3 +32,5 @@ services:
 
 networks:
   tooljet:
+  proxy:
+    external: true
