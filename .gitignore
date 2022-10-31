@@ -1,1 +1,9 @@
+# Secret files
+.env
+
+# IDE files
+.idea
+.vscode
+
+# Archived projects
 scoold
