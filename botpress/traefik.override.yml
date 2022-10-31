@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+
+  botpress:
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.botpress-http.rule=Host(`${VIRTUAL_HOST}`)
+      - traefik.http.routers.botpress-http.entrypoints=web
+      - traefik.http.routers.botpress-http.middlewares=redirect
+      - traefik.http.middlewares.redirect.redirectscheme.scheme=https
+      - traefik.http.routers.botpress-https.rule=Host(`${VIRTUAL_HOST}`)
+      - traefik.http.routers.botpress-https.entrypoints=websecure
+      - traefik.http.routers.botpress-https.tls=true
+#     - traefik.http.services.botpress.loadbalancer.server.port=${VIRTUAL_PORT}

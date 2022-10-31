@@ -1,0 +1,14 @@
+services: "3"
+
+  server:
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.tooljet-http.rule=Host(`${VIRTUAL_HOST}`)
+      - traefik.http.routers.tooljet-http.entrypoints=web
+      - traefik.http.routers.tooljet-http.middlewares=redirect
+      - traefik.http.middlewares.redirect.redirectscheme.scheme=https
+      - traefik.http.routers.tooljet-https.rule=Host(`${VIRTUAL_HOST}`)
+      - traefik.http.routers.tooljet-https.entrypoints=websecure
+      - traefik.http.routers.tooljet-https.tls=true
+      - traefik.http.routers.tooljet-https.tls.certresolver=letsencrypt
+#     - traefik.http.services.tooljet.loadbalancer.server.port=${VIRTUAL_PORT}

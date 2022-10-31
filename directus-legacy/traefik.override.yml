@@ -1,0 +1,14 @@
+services: "3"
+
+  directus:
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.directus-http.rule=Host(`${VIRTUAL_HOST}`)
+      - traefik.http.routers.directus-http.entrypoints=web
+      - traefik.http.routers.directus-http.middlewares=redirect
+      - traefik.http.middlewares.redirect.redirectscheme.scheme=https
+      - traefik.http.routers.directus-https.rule=Host(`${VIRTUAL_HOST}`)
+      - traefik.http.routers.directus-https.entrypoints=websecure
+      - traefik.http.routers.directus-https.tls=true
+      - traefik.http.routers.directus-https.tls.certresolver=letsencrypt
+#     - traefik.http.services.directus.loadbalancer.server.port=${VIRTUAL_PORT}

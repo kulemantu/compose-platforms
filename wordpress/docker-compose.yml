@@ -25,15 +25,15 @@ services:
      volumes:
        - ./wp-content:/var/www/html/wp-content
        - ./uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
-     hostname: ${HOST_URL}
+     hostname: ${VIRTUAL_HOST}
      environment:
        WORDPRESS_DB_HOST: db:3306
        WORDPRESS_DB_USER: ${DB_USER}
        WORDPRESS_DB_PASSWORD: ${DB_PASS}
        WORDPRESS_DB_NAME: ${DB_NAME}
        VIRTUAL_PORT: 8088
-       VIRTUAL_HOST: ${HOST_URL}
-       LETSENCRYPT_HOST: ${HOST_URL}
+       VIRTUAL_HOST: ${VIRTUAL_HOST}
+       LETSENCRYPT_HOST: ${VIRTUAL_HOST}
        LETSENCRYPT_EMAIL: ${SUPPORT_EMAIL}
      networks:
        - proxy

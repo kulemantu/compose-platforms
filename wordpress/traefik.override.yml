@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+  wordpress:
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.wordpress-http.rule=Host(`${VIRTUAL_HOST}`)
+      - traefik.http.routers.wordpress-http.entrypoints=web
+      - traefik.http.routers.wordpress-http.middlewares=redirect
+      - traefik.http.middlewares.redirect.redirectscheme.scheme=https
+      - traefik.http.routers.wordpress-https.rule=Host(`${VIRTUAL_HOST}`)
+      - traefik.http.routers.wordpress-https.entrypoints=websecure
+      - traefik.http.routers.wordpress-https.tls=true
+      - traefik.http.routers.wordpress-https.tls.certresolver=letsencrypt
+#      - traefik.http.services.wordpress.loadbalancer.server.port=${VIRTUAL_PORT}
