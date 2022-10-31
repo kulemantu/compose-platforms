@@ -1,5 +1,6 @@
-services: "3"
+version: "3"
 
+services:
   proxy-service:
     labels:
       - traefik.enable=true
