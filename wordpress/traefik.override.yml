@@ -12,4 +12,4 @@ services:
       - traefik.http.routers.wordpress-https.entrypoints=websecure
       - traefik.http.routers.wordpress-https.tls=true
       - traefik.http.routers.wordpress-https.tls.certresolver=letsencrypt
-#      - traefik.http.services.wordpress.loadbalancer.server.port=${VIRTUAL_PORT}
+#     - traefik.http.services.wordpress.loadbalancer.server.port=${VIRTUAL_PORT}
