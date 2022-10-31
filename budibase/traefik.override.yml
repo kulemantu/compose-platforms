@@ -1,5 +1,6 @@
-services: "3"
+version: "3"
 
+services:
   proxy-service:
     labels:
       - traefik.enable=true
@@ -11,4 +12,4 @@ services: "3"
       - traefik.http.routers.proxy-service-https.entrypoints=websecure
       - traefik.http.routers.proxy-service-https.tls=true
       - traefik.http.routers.proxy-service-https.tls.certresolver=letsencrypt
-#     - traefik.http.services.proxy-service.loadbalancer.server.port=${VIRTUAL_PORT}
+#       - traefik.http.services.proxy-service.loadbalancer.server.port=${VIRTUAL_PORT}
