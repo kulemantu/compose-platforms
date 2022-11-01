@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+  suitecrm:
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.suitecrm-http.rule=Host(`${VIRTUAL_HOST}`)
+      - traefik.http.routers.suitecrm-http.entrypoints=web
+      - traefik.http.routers.suitecrm-http.middlewares=redirect
+      - traefik.http.middlewares.redirect.redirectscheme.scheme=https
+      - traefik.http.routers.suitecrm-https.rule=Host(`${VIRTUAL_HOST}`)
+      - traefik.http.routers.suitecrm-https.entrypoints=websecure
+      - traefik.http.routers.suitecrm-https.tls=true
+      - traefik.http.routers.suitecrm-https.tls.certresolver=letsencrypt
+#     - traefik.http.services.suitecrm.loadbalancer.server.port=${VIRTUAL_PORT}
