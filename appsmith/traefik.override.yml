@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+  appsmith:
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.appsmith-http.rule=Host(`${VIRTUAL_HOST}`)
+      - traefik.http.routers.appsmith-http.entrypoints=web
+      - traefik.http.routers.appsmith-http.middlewares=redirect
+      - traefik.http.middlewares.redirect.redirectscheme.scheme=https
+      - traefik.http.routers.appsmith-https.rule=Host(`${VIRTUAL_HOST}`)
+      - traefik.http.routers.appsmith-https.entrypoints=websecure
+      - traefik.http.routers.appsmith-https.tls=true
+      - traefik.http.routers.appsmith-https.tls.certresolver=letsencrypt
+#     - traefik.http.services.appsmith.loadbalancer.server.port=${VIRTUAL_PORT}
