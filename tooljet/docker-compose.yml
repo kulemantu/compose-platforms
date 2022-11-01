@@ -22,13 +22,16 @@ services:
   postgres:
     image: postgis/postgis:13-master
     volumes:
-      - ./tooljet_data:/var/lib/postgresql/data
+      - tooljet_data:/var/lib/postgresql/data
     networks:
       - tooljet
     environment:
       POSTGRES_USER: ${PG_USER}
       POSTGRES_PASSWORD: ${PG_PASS}
       POSTGRES_DB: ${PG_DB}
+
+volumes:
+  tooljet_data:
 
 networks:
   tooljet:
