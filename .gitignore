@@ -1,6 +1,9 @@
 # Secret files
 .env
 
+# Data folders
+pg_data/
+
 # IDE files
 .idea
 .vscode
