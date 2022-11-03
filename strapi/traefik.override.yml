@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+  strapi:
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.strapi-http.rule=Host(`${VIRTUAL_HOST}`)
+      - traefik.http.routers.strapi-http.entrypoints=web
+      - traefik.http.routers.strapi-http.middlewares=redirect
+      - traefik.http.middlewares.redirect.redirectscheme.scheme=https
+      - traefik.http.routers.strapi-https.rule=Host(`${VIRTUAL_HOST}`)
+      - traefik.http.routers.strapi-https.entrypoints=websecure
+      - traefik.http.routers.strapi-https.tls=true
+      - traefik.http.routers.strapi-https.tls.certresolver=letsencrypt
+#     - traefik.http.services.strapi.loadbalancer.server.port=${VIRTUAL_PORT}
