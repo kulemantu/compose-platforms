@@ -1,4 +1,12 @@
+# JavaScript
 node_modules
+package.json
+yarn.lock
+
+# Strapi local folders
 app
 db
+src
+
+# Secrets
 .env

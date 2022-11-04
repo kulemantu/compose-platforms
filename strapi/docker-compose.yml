@@ -18,6 +18,10 @@ services:
       - "1337:1337"
     volumes:
       - ./app:/srv/app
+      - ./src:/src/arc
+      - ./package.json:opt/package-json
+      - ./yarn.lock:/opt/yarn.lock
+      - strapi_uploads:/opt/app/public/uploads
     depends_on:
       - db
     networks:
