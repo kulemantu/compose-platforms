@@ -2,7 +2,6 @@ version: '3'
 
 services:
   strapi:
-    container_name: strapi
     image: strapi/strapi
     environment:
       - DATABASE_CLIENT=postgres
@@ -11,13 +10,18 @@ services:
       - DATABASE_NAME=${DB_NAME}
       - DATABASE_USERNAME=${DB_USER}
       - DATABASE_PASSWORD=${DB_PASS}
-      - VIRTUAL_HOST=${HOST_URL}
-      - VIRTUAL_PORT=1337
-      - LETSENCRYPT_HOST=${HOST_URL}
+      - VIRTUAL_HOST=${VIRTUAL_HOST}
+      - VIRTUAL_PORT=${VIRTUAL_PORT}
+      - LETSENCRYPT_HOST=${VIRTUAL_HOST}
+      - LETSENCRYPT_EMAIL=${LETSENCRYPT_EMAIL}
     ports:
-      - 1337:1337
+      - "1337:1337"
     volumes:
       - ./app:/srv/app
+      - ./src:/src/arc
+      - ./package.json:opt/package-json
+      - ./yarn.lock:/opt/yarn.lock
+      - strapi_uploads:/opt/app/public/uploads
     depends_on:
       - db
     networks:
@@ -25,11 +29,10 @@ services:
       - proxy
 
   db:
-    container_name: strapi_postgres
-    image: postgres
+    image: postgis/postgis:13-master
     restart: always
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - pg_data:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASS}
@@ -42,4 +45,4 @@ networks:
     external: true
 
 volumes:
-  pgdata:
+  pg_data:
