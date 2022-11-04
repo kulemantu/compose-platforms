@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -c -o ./helm
+    kompose.version: 1.26.1 (a9d05d509)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: strapi
+  name: strapi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: strapi
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -c -o ./helm
+        kompose.version: 1.26.1 (a9d05d509)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/default: "true"
+        io.kompose.network/proxy: "true"
+        io.kompose.service: strapi
+    spec:
+      containers:
+        - env:
+            - name: DATABASE_CLIENT
+              value: postgres
+            - name: DATABASE_HOST
+              value: db
+            - name: DATABASE_NAME
+            - name: DATABASE_PASSWORD
+            - name: DATABASE_PORT
+              value: "5432"
+            - name: DATABASE_USERNAME
+            - name: LETSENCRYPT_EMAIL
+            - name: LETSENCRYPT_HOST
+            - name: VIRTUAL_HOST
+            - name: VIRTUAL_PORT
+          image: strapi/strapi
+          name: strapi
+          ports:
+            - containerPort: 1337
+          resources: {}
+          volumeMounts:
+            - mountPath: /srv/app
+              name: strapi-claim0
+            - mountPath: /src/arc
+              name: strapi-claim1
+            - mountPath: opt/package-json
+              name: strapi-claim2
+            - mountPath: /opt/yarn.lock
+              name: strapi-claim3
+            - mountPath: /opt/app/public/uploads
+              name: strapi-uploads
+      restartPolicy: Always
+      volumes:
+        - name: strapi-claim0
+          persistentVolumeClaim:
+            claimName: strapi-claim0
+        - name: strapi-claim1
+          persistentVolumeClaim:
+            claimName: strapi-claim1
+        - name: strapi-claim2
+          persistentVolumeClaim:
+            claimName: strapi-claim2
+        - name: strapi-claim3
+          persistentVolumeClaim:
+            claimName: strapi-claim3
+        - name: strapi-uploads
+          persistentVolumeClaim:
+            claimName: strapi-uploads
+status: {}
