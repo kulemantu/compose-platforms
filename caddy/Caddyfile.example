@@ -1,0 +1,7 @@
+{
+    email mail@example.com
+}
+
+domain.tld {
+     reverse_proxy http://container:<port>
+}

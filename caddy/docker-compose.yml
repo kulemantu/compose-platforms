@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  caddy:
+    image: caddy
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - proxy
+    volumes:
+      - ./data/:/data/
+      - ./config/:/config/
+      - ./Caddyfile:/etc/caddy/Caddyfile
+
+networks:
+  proxy:
+    external: true
