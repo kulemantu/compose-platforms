@@ -1,0 +1,47 @@
+version: "3.9"
+
+services:
+  metabase:
+    image: metabase/metabase:latest
+    container_name: metabase
+    hostname: metabase
+    volumes:
+      - ./dev/random:/dev/random:ro
+
+    ports:
+      - 3000:3000
+    environment:
+      MB_DB_TYPE: postgres
+      MB_DB_DBNAME: ${DB_NAME}
+      MB_DB_PORT: ${DB_PORT}
+      MB_DB_USER: ${DB_USER}
+      MB_DB_PASS: ${DB_PASS}
+      MB_DB_HOST: postgres
+    networks:
+      - default
+      - proxy
+    healthcheck:
+      test: curl --fail -I http://localhost:3000/api/health || exit 1
+      interval: 15s
+      timeout: 5s
+      retries: 5
+
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    hostname: postgres
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_PASSWORD: ${DB_PASS}
+    networks:
+      - default
+    volumes:
+      - mb_postgres_data:/var/lib/postgresql/data
+
+networks:
+  proxy:
+    external: true
+
+volumes:
+  mb_postgres_data:
