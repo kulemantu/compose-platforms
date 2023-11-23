@@ -19,7 +19,8 @@ services:
       MB_DB_HOST: postgres
     networks:
       - default
-      - proxy
+      - proxy # for proxy
+      - dbnet # for db storage
     healthcheck:
       test: curl --fail -I http://localhost:3000/api/health || exit 1
       interval: 15s
@@ -41,6 +42,8 @@ services:
 
 networks:
   proxy:
+    external: true
+  dbnet:
     external: true
 
 volumes:
