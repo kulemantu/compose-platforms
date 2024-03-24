@@ -1,0 +1,24 @@
+version: "3.8"
+
+services:
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin4_container
+    restart: unless-stopped
+    ports:
+      - "8888:80"
+    env_file: .env
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    networks:
+      - proxy
+      - dbnet
+
+volumes:
+  pgadmin-data:
+
+networks:
+  proxy:
+    external: true
+  dbnet:
+    external: true
