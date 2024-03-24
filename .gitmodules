@@ -1,0 +1,3 @@
+[submodule "mailcow/mailcow-dockerized"]
+	path = mailcow/mailcow-dockerized
+	url = https://github.com/mailcow/mailcow-dockerized
