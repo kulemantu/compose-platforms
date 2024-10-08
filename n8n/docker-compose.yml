@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  n8n:
+    image: docker.n8n.io/n8nio/n8n
+    container_name: n8n
+    restart: always
+    ports:
+      - "${N8N_PORT}:5678"
+    environment:
+      - DB_TYPE=postgresdb
+      - DB_POSTGRESDB_DATABASE=${POSTGRES_DATABASE}
+      - DB_POSTGRESDB_HOST=${POSTGRES_HOST}
+      - DB_POSTGRESDB_PORT=${POSTGRES_PORT}
+      - DB_POSTGRESDB_USER=${POSTGRES_USER}
+      - DB_POSTGRESDB_SCHEMA=${POSTGRES_SCHEMA}
+      - DB_POSTGRESDB_PASSWORD=${POSTGRES_PASSWORD}
+      - VIRTUAL_HOST=${VIRTUAL_HOST}
+      - VIRTUAL_PORT=5678
+      - LETSENCRYPT_HOST=${VIRTUAL_HOST}
+      - LETSENCRYPT_EMAIL=${LETSENCRYPT_EMAIL}
+    volumes:
+      - n8n_data:/home/node/.n8n
+    networks:
+      - n8n
+      - proxy
+
+networks:
+  n8n:
+  proxy:
+    external: true
+
+volumes:
+  n8n_data:
+    external: true
