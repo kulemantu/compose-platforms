@@ -1,0 +1,15 @@
+services:
+   wordpress:
+     hostname: ${VIRTUAL_HOST}
+     environment:
+       - VIRTUAL_PORT
+       - VIRTUAL_HOST
+       - LETSENCRYPT_HOST
+       - LETSENCRYPT_EMAIL
+     networks:
+       - proxy
+       - default
+
+networks:
+    proxy:
+      external: true
