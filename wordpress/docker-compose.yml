@@ -9,10 +9,12 @@ services:
      restart: always
      command: "--default-authentication-plugin=mysql_native_password"
      environment:
-       MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASS}
-       MYSQL_DATABASE: ${DB_NAME}
-       MYSQL_USER: ${DB_USER}
-       MYSQL_PASSWORD: ${DB_PASS}
+       - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASS}
+       - MYSQL_DATABASE=${DB_NAME}
+       - MYSQL_USER=${DB_USER}
+       - MYSQL_PASSWORD=${DB_PASS}
+     networks:
+      - wordpress-net
 
    wordpress:
      depends_on:
@@ -24,22 +26,23 @@ services:
      restart: always
      volumes:
        - ./wp-content:/var/www/html/wp-content
-       - ./uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
+       - ./config/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
      hostname: ${VIRTUAL_HOST}
      environment:
-       WORDPRESS_DB_HOST: db:3306
-       WORDPRESS_DB_USER: ${DB_USER}
-       WORDPRESS_DB_PASSWORD: ${DB_PASS}
-       WORDPRESS_DB_NAME: ${DB_NAME}
-       VIRTUAL_PORT: 8088
-       VIRTUAL_HOST: ${VIRTUAL_HOST}
-       LETSENCRYPT_HOST: ${VIRTUAL_HOST}
-       LETSENCRYPT_EMAIL: ${SUPPORT_EMAIL}
+       - WORDPRESS_DB_HOST=db:3306
+       - WORDPRESS_DB_USER=${DB_USER}
+       - WORDPRESS_DB_PASSWORD=${DB_PASS}
+       - WORDPRESS_DB_NAME=${DB_NAME}
+       - VIRTUAL_PORT
+       - VIRTUAL_HOST
+       - LETSENCRYPT_HOST
+       - LETSENCRYPT_EMAIL
      networks:
        - proxy
-       - default
+       - wordpress-net
 volumes:
     db_data: {}
 networks:
+    wordpress-net:
     proxy:
       external: true
