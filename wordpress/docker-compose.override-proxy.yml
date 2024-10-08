@@ -6,6 +6,7 @@ services:
        - VIRTUAL_HOST
        - LETSENCRYPT_HOST
        - LETSENCRYPT_EMAIL
+     ports: []
      networks:
        - proxy
        - default
