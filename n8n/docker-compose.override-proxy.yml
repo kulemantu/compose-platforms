@@ -1,0 +1,16 @@
+services:
+  n8n:
+    restart: unless-stopped
+    environment:
+      - VIRTUAL_HOST
+      - VIRTUAL_PORT
+      - LETSENCRYPT_HOST
+      - LETSENCRYPT_EMAIL
+    ports: []
+    networks:
+      - default
+      - proxy
+
+networks:
+  proxy:
+    external: true
