@@ -1,0 +1,26 @@
+services:
+  n8n:
+    restart: unless-stopped
+    environment:
+      - N8N_EMAIL_MODE
+      - N8N_SMTP_HOST
+      - N8N_SMTP_PORT
+      - N8N_SMTP_USER
+      - N8N_SMTP_PASS
+      - N8N_SMTP_SENDER
+      - N8N_SMTP_SSL
+      - VIRTUAL_HOST
+      - VIRTUAL_PORT
+      - LETSENCRYPT_HOST
+      - LETSENCRYPT_EMAIL
+      - N8N_SECURE_COOKIE=false
+    ports: []
+    expose: 
+      - 5678
+    networks:
+      - default
+      - proxy
+
+networks:
+  proxy:
+    external: true
