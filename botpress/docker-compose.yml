@@ -9,7 +9,7 @@ services:
     container_name: botpress-server
     command: /botpress/bp
     ports:
-      - 3000:3000
+      - 3030:3000
     env_file: botpress.env
     depends_on:
       - postgres
