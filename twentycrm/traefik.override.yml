@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+  twentycrm:
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.twentycrm-http.rule=Host(`${VIRTUAL_HOST}`)
+      - traefik.http.routers.twentycrm-http.entrypoints=web
+      - traefik.http.routers.twentycrm-http.middlewares=redirect
+      - traefik.http.middlewares.redirect.redirectscheme.scheme=https
+      - traefik.http.routers.twentycrm-https.rule=Host(`${VIRTUAL_HOST}`)
+      - traefik.http.routers.twentycrm-https.entrypoints=websecure
+      - traefik.http.routers.twentycrm-https.tls=true
+      - traefik.http.routers.twentycrm-https.tls.certresolver=letsencrypt
+#     - traefik.http.services.twentycrm.loadbalancer.server.port=${VIRTUAL_PORT}
