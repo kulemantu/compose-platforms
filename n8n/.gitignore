@@ -1,3 +1,2 @@
-.env
-node_modules
-docker-compose.override.yml
+# Sensitive backups and old deployments
+.archive/
