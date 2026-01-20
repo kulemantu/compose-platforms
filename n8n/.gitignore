@@ -1,3 +1,11 @@
+# Sensitive backups and old deployments
+.archive/
+
+# Sensitive env
 .env
+
+# Node modules
 node_modules
+
+# Docker compose override (custom implementation)
 docker-compose.override.yml
