@@ -51,6 +51,14 @@ docker-compose run --rm directus install --email email@example.com --password d1
 **Credit**
 - https://github.com/directus/directus (GPL3)
 
+### Twenty
+Open-source CRM and data platform
+
+**Credit**
+- https://twenty.com/
+- https://github.com/twentyhq/twenty (AGPL3)
+- https://hub.docker.com/r/twentycrm/twenty/tags
+
 # Contributing
 Create a pull request after checking that your setup is ready to go with Docker Compose and nginx-proxy
 1. Server services should contain the environment variables `VIRTUAL_HOST`, `VIRTUAL_PORT` and `LETSENCRYPT_HOST`
