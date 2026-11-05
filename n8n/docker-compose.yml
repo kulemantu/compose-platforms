@@ -1,6 +1,8 @@
 services:
   n8n:
-    image: n8nio/n8n:latest
+    # Pinned: `latest` silently moved this to n8n 2.x, which broke the custom node.
+    image: n8n-dater:2.46.6
+    build: ./image
     container_name: n8n
     restart: always
     ports:
